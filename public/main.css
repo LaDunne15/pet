@@ -1,0 +1,76 @@
+body{
+    padding: 0px;
+    background: rgb(32,32,42);
+    margin: 0px;
+}
+
+.addEnt{
+    background-color: rgb(190, 190, 182);
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 0 auto 15px auto;
+}
+
+.addEnt>span:first-child{
+    display: block;
+    margin-left: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: center;
+    color: wheat;
+    background: repeating-linear-gradient(
+    -45deg,
+    #133d54,
+    #15455f 10px,
+    #133d54 10px,
+    #15455f 20px
+    );
+    width: 100%;
+    font-size: 28px;
+    padding: 15px 0;
+}
+.addEnt>span{
+    font-size: 15px;
+    margin-left: 15px;
+
+}
+.addEnt>button{
+    display: block;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    text-align: center;
+    color: wheat;
+    background: repeating-linear-gradient(
+    -45deg,
+    #133d54,
+    #15455f 10px,
+    #133d54 10px,
+    #15455f 20px
+    );
+    width: 100%;
+    font-size: 28px;
+    padding: 5px 0;
+}
+
+.addEnt>input[type=text], .addEnt>input[type=number]{
+    display: block;
+    width: 90%;
+    margin: 5px;
+}
+
+.addEnt>textarea{
+    display: block;
+    width: 90%;
+    margin: 5px;
+}
+
+.addEnt>input[type=file]{
+    display: block;
+    width: 100%;
+    margin: 5px;
+}
+
+.addEnt>img{
+    width: 100%;
+    margin-top: 15px;
+}
