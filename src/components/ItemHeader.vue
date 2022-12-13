@@ -2,7 +2,7 @@
   <div>
     <nav class="menu">
         <RouterLink to="/" class="menu-el">empty</RouterLink>
-        <RouterLink to="/cabinet" class="menu-el">Кабінет</RouterLink>
+        <RouterLink v-if="jwt" to="/cabinet" class="menu-el">Кабінет</RouterLink>
         <RouterLink to="/about" class="menu-el">Фото</RouterLink>
         <a v-if="jwt" @click="logout"><RouterLink to="/" class="menu-el">Вийти</RouterLink></a>
         <RouterLink v-if="!jwt" to="/auth" class="menu-el">Увійти чи зареєструватись</RouterLink>
