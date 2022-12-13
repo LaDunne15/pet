@@ -84,6 +84,7 @@ app.get('/*', (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
+var os = require('os');
 app.listen(port,() => {
     console.log(`Production Express server running at localhost:${port}`);
 });
