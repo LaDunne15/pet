@@ -4,59 +4,47 @@
       {{user}}
       <table>
         <tr>
-          <td>
-            ID:
-          </td>
-          <td>
-            {{user._id}}
-          </td>
+          <td>ID:</td>
+          <td>{{user._id}}</td>
         </tr>
         <tr>
-          <td>
-            Пошта:
-          </td>
-          <td>
-            {{user.email}}
-          </td>
+          <td>Пошта:</td>
+          <td>{{user.email}}</td>
         </tr>
         <hr/>
-        <tr v-if="!changeMod">
-          <td>Ім'я</td>
-          <td>{{user.firstname}}</td>
-        </tr>
-        <tr v-if="changeMod">
-          <td>Ім'я</td>
-          <td><input type="text" v-model="user.firstname"></td>
-        </tr>
-        <tr v-if="!changeMod">
-          <td>Прізвище</td>
-          <td>{{user.lastname}}</td>
-        </tr>
-        <tr v-if="changeMod">
-          <td>Прізвище</td>
-          <td><input type="text" v-model="user.lastname"></td>
-        </tr>
-        <tr v-if="!changeMod">
-          <td>По батькові</td>
-          <td>{{user.fathername}}</td>
-        </tr>
-        <tr v-if="changeMod">
-          <td>По батькові</td>
-          <td><input type="text" v-model="user.fathername"></td>
+        <tr>
+          <td>Ім'я:</td>
+          <td v-if="!changeMod">{{user.firstname}}</td>
+          <td v-if="changeMod"><input type="text" v-model="user.firstname"></td>
         </tr>
         <tr>
-          <td></td>
+          <td>Прізвище:</td>
+          <td v-if="!changeMod">{{user.lastname}}</td>
+          <td v-if="changeMod"><input type="text" v-model="user.lastname"></td>
+        </tr>
+        <tr>
+          <td>По батькові:</td>
+          <td v-if="!changeMod">{{user.fathername}}</td>
+          <td v-if="changeMod"><input type="text" v-model="user.fathername"></td>
+        </tr>
+        <tr>
+          <td>Дата народження:</td>
+          <td v-if="!changeMod">{{dateB}}</td>
+          <td v-if="changeMod"><input type="date" v-model="dateB" max="2010-01-01" min="1910-01-01" default="2000-01-01" required>
+      </td>
+        </tr>
+        <tr>
+          <td><button v-if="changeMod" @click="changeMod=false">Cкасувати</button></td>
           <td><button v-if="!changeMod" @click="changeMod=true">Змінити</button>
           <button v-if="changeMod" @click="save">Зберегти</button></td>
         </tr>
         <hr/>
         <tr>
-          <td>
-            Пароль:
-          </td>
-          <td>
-            *****
-          </td>
+          <td>Пароль:</td>
+          <td>*****</td>
+        </tr>
+        <tr>
+          <td></td>
           <td>
             <button>Змінити</button>
           </td>
@@ -78,10 +66,8 @@ const keys = require('../../../config/keys');
       return {
         jwt:"",
         user: [],
-        isChangeFirstname: false,
-        isChangeLastname: false,
-        isChangeFathername: false,
-        changeMod: false
+        changeMod: false,
+        dateB: ""
       }
     },
     methods: {
@@ -89,11 +75,13 @@ const keys = require('../../../config/keys');
         var params = {
           firstname: this.user.firstname,
           lastname: this.user.lastname,
-          fathername: this.user.fathername
+          fathername: this.user.fathername,
+          dateBirth: this.dateB
         };
         await axios.put(keys.localURI+'/api/auth/updateUser',params,{headers: { Authorization: this.jwt }})
         .then((res) => {
           const token = res.data.token;
+          this.user = res.data.user;
           localStorage.setItem('jwt-token', token);
         });
         this.changeMod = false
@@ -107,7 +95,8 @@ const keys = require('../../../config/keys');
           {headers: { Authorization: this.jwt }}
       ).then(
         res => {
-          this.user = res.data
+          this.user = res.data.user
+          this.dateB = res.data.dateB
         }
       )
     }

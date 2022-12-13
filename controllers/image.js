@@ -34,9 +34,7 @@ module.exports.getImageById = async function(req, res){
 
 module.exports.updateImage = async function(req,res){
     const id = req.params.id;
-    const name = req.body.name;
-    const desc = req.body.desc;
-    await Image.findByIdAndUpdate(id, { name,desc })
+    await Image.findByIdAndUpdate(id, {})
     res.status(200).json({
       "msg":"Змінено"
     })
@@ -82,8 +80,6 @@ module.exports.upload = async function (req, res) {
             }
         });
         var obj = {
-            name: req.body.name,
-            desc: req.body.desc,
             img: {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + myFile.name)),
                 contentType: 'image/png'

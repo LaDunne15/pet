@@ -77,7 +77,19 @@ module.exports.hello = async function (req, res) {
     })
 
 }
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 module.exports.getUser = async function (req, res) {
 
     const authHeader = req.headers.authorization;
@@ -85,7 +97,8 @@ module.exports.getUser = async function (req, res) {
         const token = authHeader.split(' ')[1];
         var userId = jwt.verify(token, keys.jwt).userId;
         const user =  await User.findById(userId);
-        res.status(201).json(user);
+        const dateB = formatDate(user.dateBirth);
+        res.status(201).json({user,dateB});
     }
 }
 
@@ -102,7 +115,7 @@ module.exports.updateUser = async function (req, res) {
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
         user.fathername = req.body.fathername;
-        //user.birth = req.body.birth;
+        user.dateBirth = req.body.dateBirth;
 
         try{
             await user.save()
@@ -111,12 +124,13 @@ module.exports.updateUser = async function (req, res) {
                 userId: user._id,
                 firstname: user.firstname,
                 lastname: user.lastname,
-                fathername: user.fathername
-                //birth: user.birth
+                fathername: user.fathername,
+                birth: user.dateBirth
             }, keys.jwt, {expiresIn: 3 * 60 * 60});
 
             res.status(200).json({
-                token: `Bearer ${token}`
+                token: `Bearer ${token}`,
+                user
             })
         }
         catch (e){

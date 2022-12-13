@@ -1,8 +1,6 @@
 const {Schema, model} = require('mongoose');
 
 const schema = new Schema({
-    name: String,
-    desc: String,
     img:
     {
       data: Buffer,

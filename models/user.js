@@ -10,6 +10,9 @@ const schema = new Schema( {
         type: String,
         required: true
     },
+    login: {
+        type: String
+    },
     firstname: {
         type: String
     },
