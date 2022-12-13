@@ -1,5 +1,5 @@
 <script setup>
-import CabinetForm from '@/components/CabinetForm.vue'
+import CabinetForm from '@/components/cabinet/CabinetForm.vue'
 </script>
 <template>
   <div>

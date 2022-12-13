@@ -81,12 +81,10 @@ module.exports.hello = async function (req, res) {
 module.exports.getUser = async function (req, res) {
 
     const authHeader = req.headers.authorization;
-    console.log(authHeader)
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-        var userId = jwt.verify(token, keys.jwt)._id;
-        console.log("ffff"+userId);
-        const user =  await User.findOne({email: userEmail});
+        var userId = jwt.verify(token, keys.jwt).userId;
+        const user =  await User.findById(userId);
         res.status(201).json(user);
     }
 }
@@ -104,25 +102,22 @@ module.exports.updateUser = async function (req, res) {
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
         user.fathername = req.body.fathername;
-        user.birth = req.body.birth;
+        //user.birth = req.body.birth;
 
         try{
             await user.save()
-
             const token = jwt.sign({
                 email: user.email,
                 userId: user._id,
                 firstname: user.firstname,
                 lastname: user.lastname,
-                fathername: user.fathername,
-                birth: user.birth
+                fathername: user.fathername
+                //birth: user.birth
             }, keys.jwt, {expiresIn: 3 * 60 * 60});
-
 
             res.status(200).json({
                 token: `Bearer ${token}`
             })
-
         }
         catch (e){
             errorHandler(res, e);

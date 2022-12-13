@@ -1,14 +1,14 @@
 <template>
   <div>
     <RouterLink v-if="!jwt" to="/auth">Увійти або зареєструватися</RouterLink>
-    {{jwt}}
+    Головна сторінка
   </div>
 </template>
 
 <script>
 //import store from '../state/state'
 export default {
-  name: 'MailComponent',
+  name: 'MainComponent',
   props: {
     id: String
   },

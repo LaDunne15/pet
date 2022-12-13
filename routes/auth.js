@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/login', controller.login);
 router.post('/register', controller.register);
 router.get('/getUser', passport.authenticate('jwt', {session: false}), controller.getUser);
+router.put('/updateUser', passport.authenticate('jwt', {session: false}), controller.updateUser);
 router.get('/hello', passport.authenticate('jwt', {session: false}), controller.hello);
 
 
