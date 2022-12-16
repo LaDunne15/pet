@@ -1,6 +1,14 @@
 const {Schema, model} = require('mongoose');
 
 const schema = new Schema( {
+    images: [{
+        type: Schema.Types.ObjectId,
+        ref: 'images'
+    }],
+    main_image: {
+        type: Schema.Types.ObjectId,
+        ref: 'images'
+    },
     email: {
         type: String,
         required: true,

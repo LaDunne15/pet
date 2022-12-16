@@ -7,6 +7,8 @@ router.post('/login', controller.login);
 router.post('/register', controller.register);
 router.get('/getUser', passport.authenticate('jwt', {session: false}), controller.getUser);
 router.put('/updateUser', passport.authenticate('jwt', {session: false}), controller.updateUser);
+router.put('/updatePassword', passport.authenticate('jwt', {session: false}), controller.updatePassword);
+router.put('/uploadUserPhoto', passport.authenticate('jwt', {session: false}), controller.uploadUserPhoto);
 router.get('/hello', passport.authenticate('jwt', {session: false}), controller.hello);
 
 

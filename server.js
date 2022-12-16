@@ -35,49 +35,6 @@ const authRoutes = require('./routes/auth');
 const imageRoutes = require('./routes/image')
 app.use('/api/auth', authRoutes);
 app.use('/api/image', imageRoutes);
-/*
-app.post("/addUser", function(req, res){
-  const user  = new User({
-    name: req.body.name,
-    age: req.body.age
-  });
-  user.save(function(err){
-    if(err) return console.log(err);
-  });
-  res.status(201).json(user);
-});
-app.get("/getUsers", async function(req, res){
-  const users = await User.find({});
-  res.status(200).json({
-    users
-  });
-})
-app.get("/getUser/:id", async function(req, res){
-  const id = req.params.id;
-  const user = await User.findById(id);
-  res.status(200).json({
-    user
-  });
-})
-app.delete("/removeUser/:id", async function(req, res){
-  const id = req.params.id;
-  User.findByIdAndDelete(id, function(err, doc){
-    if(err) return console.log(err);
-});
-res.status(200).json({
-  "msg":"Користувач видалений"
-});
-})
-app.put("/updateUser/:id", async function(req,res){
-  const id = req.params.id;
-  const name = req.body.name;
-  const age = req.body.age;
-  await User.findByIdAndUpdate(id, { name,age })
-  res.status(200).json({
-    "msg":"Змінено"
-  })
-})
-*/
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));

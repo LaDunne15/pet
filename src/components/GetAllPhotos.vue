@@ -17,9 +17,7 @@
         <div v-for="img in imgs" :key="img._id" class="imagediv">
             <button v-on:click="edit(img._id)">Редагувати</button>
             <button v-on:click="remove(img._id)">Видалити</button>
-            <img class="image" :src="'data:'+img.img.contentType+';base64,'+img.img.data">
-            <span>{{img.name}}</span>
-            <p>{{img.desc}}</p>
+            <img class="image" :src="'data:'+img.contentType+';base64,'+img.data">
         </div>
     </div>
 </template>

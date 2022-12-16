@@ -80,10 +80,8 @@ module.exports.upload = async function (req, res) {
             }
         });
         var obj = {
-            img: {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + myFile.name)),
                 contentType: 'image/png'
-            }
         }
         Image.create(obj, (err, item) => {
             if (err) {

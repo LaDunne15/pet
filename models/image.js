@@ -1,11 +1,17 @@
 const {Schema, model} = require('mongoose');
 
 const schema = new Schema({
-    img:
-    {
-      data: Buffer,
-      contentType: String
+    data: {
+      type: Buffer
+    },
+    contentType: {
+      type:String
+    },
+    upload_date: {
+        type: Date,
+        default: Date.now
     }
+
 });
 
 module.exports = model('images', schema);
