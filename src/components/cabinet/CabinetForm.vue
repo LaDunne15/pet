@@ -5,10 +5,10 @@
         <tr>
           <td>Фото:</td>
           <td>
-            <!--<div v-for="img in user.images" :key="img._id">
+            <div v-for="img in user.images" :key="img._id">
               <img :src="'data:'+img.contentType+';base64,'+img.data">
-            </div>-->
-            <img style="width: 100%" :src="'data:'+main_img.contentType+';base64,'+main_img.data">
+            </div>
+            <!--<img style="width: 100%" :src="'data:'+main_img.contentType+';base64,'+main_img.data">-->
           </td>
           <td><input type="file" @change=uploadImage name="image">
             <button v-on:click="send">Завантажити</button></td>
