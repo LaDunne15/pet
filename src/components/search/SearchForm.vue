@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     gotouser: async function (id) {
-        console.log(id);
+      this.$router.push('user/'+id)
     }
     },
     mounted() {
@@ -39,7 +39,7 @@ export default {
 </script>
 <template>
     <div>
-        <div v-for="user in users" :key="user._id" style="margin-bottom: 10px;">
+        <div v-for="user in users" class="user" :key="user._id">
             <ImageForm v-if="user.main_image" style="width:100px" :data="user.main_image"></ImageForm>
             <p>{{user.login}} ({{user.firstname}} {{user.lastname}})</p>
             <p>{{user.town}}</p>
@@ -47,3 +47,11 @@ export default {
         </div>
     </div>
 </template>
+<style scoped>
+.user
+{
+  display: block;
+  border: 2px solid gray;
+  margin-bottom: 10px;
+}
+</style>

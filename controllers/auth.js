@@ -268,3 +268,12 @@ module.exports.getUsers = async function(req, res) {
       users
     });
 }
+
+module.exports.getUserById = async function(req, res){
+    const id = req.params.id;
+    const user = await User.findById(id).populate('images main_image').lean();
+    const dateB = formatDate(user.dateBirth);
+    res.status(200).json({
+      user,dateB
+    });
+}
