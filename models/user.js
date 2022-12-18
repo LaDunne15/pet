@@ -19,7 +19,8 @@ const schema = new Schema( {
         required: true
     },
     login: {
-        type: String
+        type: String,
+        unique: true
     },
     firstname: {
         type: String
@@ -32,6 +33,9 @@ const schema = new Schema( {
     },
     dateBirth: {
         type: Date
+    },
+    town: {
+        type: String
     }
 });
 module.exports = model('users', schema);

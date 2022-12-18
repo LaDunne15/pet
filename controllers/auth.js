@@ -131,6 +131,8 @@ module.exports.updateUser = async function (req, res) {
         user.lastname = req.body.lastname;
         user.fathername = req.body.fathername;
         user.dateBirth = req.body.dateBirth;
+        user.login = req.body.login;
+        user.town = req.body.town;
 
         try{
             await user.save()
@@ -140,7 +142,9 @@ module.exports.updateUser = async function (req, res) {
                 firstname: user.firstname,
                 lastname: user.lastname,
                 fathername: user.fathername,
-                birth: user.dateBirth
+                birth: user.dateBirth,
+                login: user.login,
+                town: user.town
             }, keys.jwt, {expiresIn: 3 * 60 * 60});
 
             res.status(200).json({
@@ -256,4 +260,11 @@ module.exports.uploadUserPhoto = async function (req,res) {
         }
         });
     }    
+}
+
+module.exports.getUsers = async function(req, res) {
+    const users = await User.find({}).populate('images main_image').lean();
+    res.status(200).json({
+      users
+    });
 }
