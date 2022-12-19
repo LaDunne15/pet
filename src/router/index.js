@@ -6,6 +6,7 @@ import EditUser from '../components/EditUser.vue'
 import EditPhoto from '../components/EditPhoto.vue'
 import SearchForm from '../components/search/SearchForm.vue'
 import UserForm from '../components/cabinet/UserForm.vue'
+import ImageForm from '../components/img/ImageLookForm.vue'
 import UserView from '../views/UserView.vue'
 import CabinetForm from '../views/CabinetView.vue'
 //const HW = { template: '<div>{{$route.params.id}}</div>'}
@@ -34,6 +35,12 @@ const routes = [
     path: '/user/:id',
     name: 'user',
     component: UserForm,
+    props: route => ({ id: route.params.id})
+  },
+  {
+    path: '/image/:id',
+    name: 'image',
+    component: ImageForm,
     props: route => ({ id: route.params.id})
   },
 

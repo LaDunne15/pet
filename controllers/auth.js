@@ -236,6 +236,7 @@ module.exports.uploadUserPhoto = async function (req,res) {
             const token = authHeader.split(' ')[1];
             var userEmail = jwt.verify(token, keys.jwt).email;
             const user =  await User.findOne({email: userEmail}).populate('images');
+            image.author = await user._id;
             await image.save();
             await user.images.push(image._id);
             user.main_image = await image._id;
@@ -276,4 +277,44 @@ module.exports.getUserById = async function(req, res){
     res.status(200).json({
       user,dateB
     });
+}
+
+module.exports.likeImage = async function(req,res){
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+
+        var userEmail = jwt.verify(token, keys.jwt).email;
+
+        const user =  await User.findOne({email: userEmail});
+        //user.firstname = req.body.firstname;
+        const idImg = req.body.id;
+        const img = await Image.findById(idImg);
+        if(!img.likes)
+        {
+            img.likes=[]
+        }
+        if(!img.likes.includes(user._id))
+        {
+            await img.likes.push(user._id);
+            msg = "Лайк"
+        }
+        else
+        {
+            var indx = img.likes.indexOf(user._id)
+            await img.likes.splice(indx,1);
+            msg = "Дизлайк"
+        }
+
+        try{
+            await img.save()
+            res.status(200).json({
+                msg,img
+            })
+        }
+        catch (e){
+            errorHandler(res, e);
+        }
+    }
 }

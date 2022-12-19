@@ -82,8 +82,10 @@
         </tr>
       </table>
       <p>Галерея</p>
+      <div class="container">
       <div v-for="img in user.images" :key="img._id">
-        <ImageForm style="width: 30%; margin: 5px; display: inline;" :data="img"></ImageForm>
+        <ImageForm @click="getImage(img._id)" class="imgF" :data="img"></ImageForm>
+      </div>
       </div>
     </div>
 </template>
@@ -165,6 +167,9 @@ export default {
         //handle error
         console.log(response);
         });
+      },
+      getImage(id){
+        this.$router.push("/image/"+id)
       }
     },
     mounted() {
@@ -190,5 +195,20 @@ export default {
 }
 </script>
 <style scoped>
+.container
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.container>div
+{
+  flex-grow: 1;
+  width: 33%;
+  margin: auto 0;
+}
+
+.imgF{
+  width: 100%;  
+}
 </style>
   

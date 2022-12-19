@@ -10,7 +10,15 @@ const schema = new Schema({
     upload_date: {
         type: Date,
         default: Date.now
-    }
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    likes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'users'
+    }]
 
 });
 

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Image = require('../models/image');
+const User = require('../models/user');
 const keys = require('../config/keys');
 const errorHandler = require('../utils/errorHandler');
 const fs = require('fs');
@@ -23,14 +24,45 @@ module.exports.getImages = async function(req, res) {
       imgs
     });
 }
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 module.exports.getImageById = async function(req, res){
+    var like = false
+    const authHeader = req.headers.authorization;
     const id = req.params.id;
-    const img = await Image.findById(id).lean();
-    res.status(200).json({
-      img
-    });
-} 
+    const img = await Image.findById(id).populate('author').lean();
+    if (!img.likes)
+    {
+        img.likes=[]
+    }
+    const dateD = formatDate(img.upload_date)
+    if (authHeader) {
+        const token = await authHeader.split(' ')[1];
+
+        var userEmail = await jwt.verify(token, keys.jwt).email;
+
+        const user =  await User.findOne({email: userEmail});
+        like = await img.likes.some(function (i) {
+            return i.equals(user._id);
+        });
+        res.status(200).json({
+            img,dateD,like
+        });
+    }
+
+    
+}
 
 module.exports.updateImage = async function(req,res){
     const id = req.params.id;

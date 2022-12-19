@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/image2', controller.getImages);
-router.get("/getImage/:id", controller.getImageById);
+router.get("/getImage/:id",passport.authenticate('jwt', {session: false}), controller.getImageById);
 router.put("/updateImage/:id", controller.updateImage);
 router.delete("/removeImage/:id", controller.deleteImage);
 router.post('/upload', controller.upload)
