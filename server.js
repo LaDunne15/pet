@@ -32,9 +32,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 const authRoutes = require('./routes/auth');
-const imageRoutes = require('./routes/image')
+const imageRoutes = require('./routes/image');
+const msgsRoutes = require('./routes/msgs');
 app.use('/api/auth', authRoutes);
 app.use('/api/image', imageRoutes);
+app.use('/api/msgs', msgsRoutes);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));

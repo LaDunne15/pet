@@ -10,7 +10,7 @@ router.put('/updateUser', passport.authenticate('jwt', {session: false}), contro
 router.put('/updatePassword', passport.authenticate('jwt', {session: false}), controller.updatePassword);
 router.put('/uploadUserPhoto', passport.authenticate('jwt', {session: false}), controller.uploadUserPhoto);
 router.put('/like', passport.authenticate('jwt', {session: false}), controller.likeImage);
-router.get('/getUsers', controller.getUsers);
+router.get('/getUsers', passport.authenticate('jwt', {session: false}), controller.getUsers);
 router.get('/getUserById/:id', controller.getUserById);
 
 

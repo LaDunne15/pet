@@ -2,6 +2,7 @@
   <div>
     <nav class="menu">
         <RouterLink to="/" class="menu-el">Головна</RouterLink>
+        <RouterLink v-if="jwt" to="/msgs" class="menu-el">Повідомлення</RouterLink>
         <RouterLink v-if="jwt" to="/cabinet" class="menu-el">Кабінет</RouterLink>
         <RouterLink v-if="jwt" to="/search" class="menu-el">Пошук</RouterLink>
         <!--<RouterLink to="/about" class="menu-el">Фото</RouterLink>-->

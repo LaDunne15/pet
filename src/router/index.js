@@ -8,6 +8,8 @@ import SearchForm from '../components/search/SearchForm.vue'
 import UserForm from '../components/cabinet/UserForm.vue'
 import ImageForm from '../components/img/ImageLookForm.vue'
 import UserView from '../views/UserView.vue'
+import MsgsForm from '../components/msgs/MessagesForm.vue'
+import ChatForm from '@/components/msgs/ChatForm.vue'
 import CabinetForm from '../views/CabinetView.vue'
 //const HW = { template: '<div>{{$route.params.id}}</div>'}
 const routes = [
@@ -43,7 +45,17 @@ const routes = [
     component: ImageForm,
     props: route => ({ id: route.params.id})
   },
-
+  {
+    path: '/msgs',
+    name: 'msgs',
+    component: MsgsForm
+  },
+  {
+    path: '/msg/:id',
+    name: 'msg',
+    component: ChatForm,
+    props: route => ({ id: route.params.id})
+  },
   {
     path: '/about',
     name: 'about',

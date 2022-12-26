@@ -3,30 +3,30 @@ import axios from 'axios'
 const keys = require('../../../config/keys');
 import ImageForm from '@/components/img/ImageForm.vue';
 export default {
-  name: 'CabinetComponent',
+  name: 'MsgsComponent',
   props: {
     id: String
   },
   data() {
     return {
       jwt:"",
-      users: []
+      msgs: []
     }
   },
   methods: {
-    gotouser: async function (id) {
-      this.$router.push('user/'+id)
-    }
+    toMsg: async function (id) {
+      this.$router.push('msg/'+id)
+    },
     },
     mounted() {
       this.jwt = localStorage.getItem('jwt-token');
       if(this.jwt!="")
     {
-      axios.get(keys.localURI+'/api/auth/getUsers',
+      axios.get(keys.localURI+'/api/msgs/',
       {headers: { Authorization: this.jwt }}
       ).then(
         res => {
-          this.users = res.data.users
+          this.msgs = res.data.msgs
         }
       )
     }
@@ -35,18 +35,17 @@ export default {
       console.log("Не авторизовано");
     }
     },
+    // eslint-disable-next-line
     components: {ImageForm}
 }
 </script>
 <template>
-    <div>
-        <div v-for="user in users" class="user" :key="user._id">
-            <ImageForm v-if="user.main_image" style="width:100px" :data="user.main_image"></ImageForm>
-            <p>{{user.login}} ({{user.firstname}} {{user.lastname}})</p>
-            <p>{{user.town}}</p>
-            <button @click="gotouser(user._id)">Перейти до користувача</button>
-        </div>
+  <div>
+    <div v-for="msg in msgs" :key="msg._id">
+      {{ msg }}
+      <button @click="toMsg(msg._id)">Перейти до повідомлення</button>
     </div>
+  </div>
 </template>
 <style scoped>
 .user

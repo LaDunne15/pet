@@ -264,10 +264,16 @@ module.exports.uploadUserPhoto = async function (req,res) {
 }
 
 module.exports.getUsers = async function(req, res) {
-    const users = await User.find({}).populate('images main_image').lean();
-    res.status(200).json({
-      users
-    });
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+        var userId = jwt.verify(token, keys.jwt).userId;
+        const user =  await User.findById(userId);
+        const users = await User.find({}).populate('main_image').lean();
+        res.status(200).json({
+            users
+        });
+    }    
 }
 
 module.exports.getUserById = async function(req, res){

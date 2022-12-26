@@ -43,6 +43,7 @@
         </tr>
         <hr/>
       </table>
+      <button @click="createMsg">Написати</button>
       <p>Галерея</p>
       <div class="container">
       <div v-for="img in user.images" :key="img._id">
@@ -130,6 +131,19 @@ export default {
       },
       getImage(id){
         this.$router.push("/image/"+id)
+      },
+      createMsg: async function() {
+        var params = {
+          id: this.user._id
+        };
+        await axios.post(keys.localURI+'/api/msgs/createMsg',params,{headers: { Authorization: this.jwt }})
+        .then(function () {
+
+        })
+        .catch(function (response) {
+        //handle error
+        console.log(response);
+        });
       }
     },
     mounted() {
