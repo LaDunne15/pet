@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 
 const keys = require('./config/keys');
-//mongoose.connect("mongodb+srv://test_user:test_pass@cluster0.mxosg.mongodb.net/empty_db?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true })
+//mongoose.connect("***", { useUnifiedTopology: true, useNewUrlParser: true })
 mongoose.connect(keys.mongoURI, { useUnifiedTopology: true, useNewUrlParser: true })
 .then(()=> console.log("MongoDB connected"))
 .catch(error => console.log(error));
